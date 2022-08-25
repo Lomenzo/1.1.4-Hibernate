@@ -59,4 +59,7 @@ public class User {
     public void setAge(Byte age) {
         this.age = age;
     }
+
+
+    // должен быть переопределен toString в классе User
 }
