@@ -20,7 +20,7 @@ public class Main {
         userDaoJDBC.saveUser("Liza", "Smirnova", (byte)33);
         userDaoJDBC.saveUser("Loh", "Lohov", (byte)15);
         userDaoJDBC.saveUser("Alex", "Tankov", (byte)22);*/
-
+        userDaoJDBC.getAllUsers();
             //userDaoJDBC.removeUserById(1);
         //userDaoJDBC.cleanUsersTable();
         //userDaoJDBC.dropUsersTable();
