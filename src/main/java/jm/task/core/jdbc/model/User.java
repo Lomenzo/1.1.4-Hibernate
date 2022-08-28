@@ -68,6 +68,4 @@ public class User {
                 ", age=" + age +
                 '}';
     }
-
-    // должен быть переопределен toString в классе User
 }
