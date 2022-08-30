@@ -18,23 +18,27 @@ public class Main {
         settings.put(Environment.URL, "jdbc:mysql://localhost/dedusers");
         settings.put(Environment.USER, "root");
         settings.put(Environment.PASS, "1Dothisf");
-        settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL52Dialect");
+        settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL55Dialect");
         settings.put(Environment.SHOW_SQL, "true");
         settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        settings.put(Environment.HBM2DDL_AUTO, "create-drop");
+        settings.put(Environment.HBM2DDL_AUTO, "create");
 
         configuration.setProperties(settings);
         configuration.addAnnotatedClass(User.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-
-        Session session = sessionFactory.getCurrentSession();
+        Session session = null;
+        session = sessionFactory.getCurrentSession();
 
         session.beginTransaction();
         User user = new User("Petr", "Petrov", (byte)45);
         System.out.println(user);
         session.save(user);
-        session.beginTransaction().commit();
+        System.out.println(user.getId());
+        System.out.println(user.getName());
+        System.out.println(user.getLastName());
+        System.out.println(user.getAge());
+        session.getTransaction().commit();
 
         sessionFactory.close();
 
