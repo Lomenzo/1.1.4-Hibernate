@@ -3,7 +3,6 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +12,15 @@ public class UserDaoHibernateImpl implements UserDao {
     Util util = new Util();
     Session session = null;
 
-
     public UserDaoHibernateImpl() {
 
     }
-
 
     @Override
     public void createUsersTable() {
         try {
             session = util.getSession().getCurrentSession();
             session.beginTransaction();
-            //session.createSQLQuery("create table IF NOT EXISTS users1 \n ( \n ID bigint not null auto_increment, \n fName varchar(30), \n lastName varchar(30), \n Age tinyint, \n primary key (ID) \n )").executeUpdate();
-
             session.createSQLQuery("create table IF NOT EXISTS users1 \n ( \n " +
                                         "ID bigint not null auto_increment, \n " +
                                         "fName varchar(30), \n " +
@@ -71,11 +66,6 @@ public class UserDaoHibernateImpl implements UserDao {
                 User user = new User(name, lastName, age);
                 System.out.println(user);
                 session.save(user);
-                //-----вывод юзера в консоль для проверки-----
-                System.out.println(user.getId());
-                System.out.println(user.getName());
-                System.out.println(user.getLastName());
-                System.out.println(user.getAge());
                 session.getTransaction().commit();
                 System.out.println("User с именем – " + name + "добавлен в базу данных ");
             } catch (Exception e) {
@@ -130,6 +120,19 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() {
-
+        try {
+            session = util.getSession().getCurrentSession();
+            session.beginTransaction();
+            session.createQuery("delete from users1").executeUpdate();
+            session.getTransaction().commit();
+            System.out.println("UserTable cleaned");
+        } catch (Exception e) {
+            System.out.println("UserTable not cleaned" + e);
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
     }
 }

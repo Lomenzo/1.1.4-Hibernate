@@ -1,27 +1,8 @@
 package jm.task.core.jdbc;
-import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
-import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
-import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-
-        //UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
-        //userDaoHibernate.createUsersTable();
-        //userDaoHibernate.saveUser("Petr", "Petrov", (byte)45);
-        //userDaoHibernate.saveUser("Liza", "Smirnova", (byte)33);
-        //userDaoHibernate.saveUser("Loh", "Lohov", (byte)15);
-        //userDaoHibernate.saveUser("Alex", "Tankov", (byte)22);
-        //userDaoHibernate.getAllUsers();
-        //userDaoHibernate.removeUserById(1);
-        //userDaoHibernate.cleanUsersTable();
-        //userDaoHibernate.dropUsersTable();
-
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("Petr", "Petrov", (byte)45);
