@@ -30,10 +30,10 @@ public class Util {
                 settings.put(Environment.URL, "jdbc:mysql://localhost/dedusers");
                 settings.put(Environment.USER, "root");
                 settings.put(Environment.PASS, "1Dothisf");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL55Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "validate");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);

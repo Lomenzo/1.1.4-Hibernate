@@ -21,12 +21,46 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
+        try {
+            session = util.getSession().getCurrentSession();
+            session.beginTransaction();
+            //session.createSQLQuery("create table IF NOT EXISTS users1 \n ( \n ID bigint not null auto_increment, \n fName varchar(30), \n lastName varchar(30), \n Age tinyint, \n primary key (ID) \n )").executeUpdate();
 
+            session.createSQLQuery("create table IF NOT EXISTS users1 \n ( \n " +
+                                        "ID bigint not null auto_increment, \n " +
+                                        "fName varchar(30), \n " +
+                                        "lastName varchar(30), \n " +
+                                        "Age tinyint, \n " +
+                                        "primary key (ID) \n )")
+                                        .executeUpdate();
+            session.getTransaction().commit();
+            System.out.println("UserTable create");
+        } catch (Exception e) {
+            System.out.println("UserTable not create" + e);
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public void dropUsersTable() {
-
+        try {
+            session = util.getSession().getCurrentSession();
+            session.beginTransaction();
+            session.createSQLQuery("drop table if exists users1").executeUpdate();
+            session.getTransaction().commit();
+            System.out.println("UserTable drop-deleted");
+        } catch (Exception e) {
+            System.out.println("UserTable not drop-deleted" + e);
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
     }
 
     @Override
@@ -66,6 +100,10 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             System.out.println("not removed user" + e);
             e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 
@@ -75,16 +113,17 @@ public class UserDaoHibernateImpl implements UserDao {
         try {
             session = util.getSession().getCurrentSession();
             session.beginTransaction();
-
             list = new ArrayList<>();
             list = session.createCriteria(User.class).list();
-
-            System.out.println(user.toString());
-
+            list.forEach(System.out::println);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("not get" + e);
             e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
         return list;
     }
