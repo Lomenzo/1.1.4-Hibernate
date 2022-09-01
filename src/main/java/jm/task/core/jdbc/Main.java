@@ -1,4 +1,5 @@
 package jm.task.core.jdbc;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import org.hibernate.Session;
@@ -9,10 +10,15 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
+
+        UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
+        //userDaoHibernate.saveUser("Liza", "Smirnova", (byte)33);
+        userDaoHibernate.removeUserById(2);
+
         //UserServiceImpl userService = new UserServiceImpl();
         //userService.createUsersTable();
 
-        Configuration configuration = new Configuration();
+        /*Configuration configuration = new Configuration();
         Properties settings = new Properties();
         settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         settings.put(Environment.URL, "jdbc:mysql://localhost/dedusers");
@@ -28,19 +34,11 @@ public class Main {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
         Session session = null;
-        session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();*/
 
-        session.beginTransaction();
-        User user = new User("Petr", "Petrov", (byte)45);
-        System.out.println(user);
-        session.save(user);
-        System.out.println(user.getId());
-        System.out.println(user.getName());
-        System.out.println(user.getLastName());
-        System.out.println(user.getAge());
-        session.getTransaction().commit();
 
-        sessionFactory.close();
+
+
 
 
 

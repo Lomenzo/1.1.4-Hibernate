@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.util;
 
 import jm.task.core.jdbc.model.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -21,8 +22,7 @@ public class Util {
     private static SessionFactory sessionFactory = getSessionFactory();
 
     private static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            try {
+
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
 
@@ -37,15 +37,8 @@ public class Util {
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
+                SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-
-
-
-            } catch (Exception e) {
-                System.out.println("Исключение при создании sessionFactory");
-                e.printStackTrace();
-            }
-        }
         return sessionFactory;
     }
 
